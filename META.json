@@ -4,7 +4,7 @@
       "unknown"
    ],
    "dynamic_config" : 1,
-   "generated_by" : "Module::Build version 0.38, CPAN::Meta::Converter version 2.112150",
+   "generated_by" : "Module::Build version 0.3901, CPAN::Meta::Converter version 2.120630",
    "license" : [
       "perl_5"
    ],
@@ -25,10 +25,10 @@
    "prereqs" : {
       "build" : {
          "requires" : {
-            "ExtUtils::CBuilder" : 0,
+            "ExtUtils::CBuilder" : "0",
             "ExtUtils::ParseXS" : "3.0",
-            "Test::Exception" : 0,
-            "Test::Warn" : 0
+            "Test::Exception" : "0",
+            "Test::Warn" : "0"
          }
       },
       "configure" : {
@@ -47,7 +47,7 @@
    "provides" : {
       "PDL::Parallel::threads" : {
          "file" : "lib/PDL/Parallel/threads.pm",
-         "version" : "0.02"
+         "version" : "0.03"
       },
       "PDL::Parallel::threads::SIMD" : {
          "file" : "lib/PDL/Parallel/threads/SIMD.pm",
@@ -66,5 +66,5 @@
          "url" : "http://github.com/run4flat/PDL-Parallel-threads"
       }
    },
-   "version" : "0.02"
+   "version" : "0.03"
 }

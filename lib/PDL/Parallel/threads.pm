@@ -5,11 +5,18 @@ use warnings;
 use Carp;
 use PDL;
 use PDL::IO::FastRaw;
-use threads;
-use threads::shared;
 
+my $can_use_threads;
 BEGIN {
-	our $VERSION = '0.02';
+	$can_use_threads = eval {
+		require threads;
+		threads->import();
+		require threads::shared;
+		threads::shared->import();
+		1;
+	};
+	
+	our $VERSION = '0.03';
 	use XSLoader;
 	XSLoader::load 'PDL::Parallel::threads', $VERSION;
 }
@@ -69,9 +76,14 @@ sub share_pdls {
 				croak('share_pdls: Could not share a piddle under '
 					. "name '$name' because $error");
 			}
-			$dim_arrays{$name} = shared_clone([$to_store->dims]);
+			if ($can_use_threads) {
+				$dim_arrays{$name} = shared_clone([$to_store->dims]);
+				$originating_tid{$name} = threads->tid;
+			}
+			else {
+				$dim_arrays{$name} = [$to_store->dims];
+			}
 			$types{$name} = $to_store->get_datatype;
-			$originating_tid{$name} = threads->tid;
 		}
 		elsif (ref($to_store) eq '') {
 			# A file name, presumably; share via memory mapping
@@ -152,7 +164,7 @@ sub retrieve_pdls {
 		if (exists $datasv_pointers{$name}) {
 			# Make sure that the originating thread still exists, or the
 			# data will be gone.
-			if ($originating_tid{$name} > 0
+			if ($can_use_threads and $originating_tid{$name} > 0
 				and not defined (threads->object($originating_tid{$name}))
 			) {
 				croak("retrieve_pdls: '$name' was created in a thread that "
@@ -219,7 +231,7 @@ PDL::Parallel::threads - sharing PDL data between Perl threads
 
 =head1 VERSION
 
-This documentation describes version 0.02 of PDL::Parallel::threads.
+This documentation describes version 0.03 of PDL::Parallel::threads.
 
 =head1 SYNOPSIS
 
@@ -231,7 +243,8 @@ This documentation describes version 0.02 of PDL::Parallel::threads.
  use threads;
  
  # Also, technically, you can use PDL::Parallel::threads with
- # single-threaded programs.
+ # single-threaded programs, and even with perl's not compiled
+ # with thread support.
  
  # Create some shared PDL data
  zeroes(1_000_000)->share_as('My::shared::data');
