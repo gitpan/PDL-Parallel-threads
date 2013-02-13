@@ -11,7 +11,7 @@ configure_requires:
   Module::Build: 0.28
   PDL: v2.4.0
 dynamic_config: 1
-generated_by: 'Module::Build version 0.3901, CPAN::Meta::Converter version 2.120630'
+generated_by: 'Module::Build version 0.4003, CPAN::Meta::Converter version 2.120921'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -26,15 +26,16 @@ no_index:
 provides:
   PDL::Parallel::threads:
     file: lib/PDL/Parallel/threads.pm
-    version: 0.03
+    version: 0.03_01
   PDL::Parallel::threads::SIMD:
     file: lib/PDL/Parallel/threads/SIMD.pm
     version: 0.02
 requires:
   PDL: v2.4.10
   perl: v5.8.0
+  threads::shared: 1.21
 resources:
   bugtracker: http://github.com/run4flat/PDL-Parallel-threads/issues
   license: http://dev.perl.org/licenses/
   repository: http://github.com/run4flat/PDL-Parallel-threads
-version: 0.03
+version: 0.03_01

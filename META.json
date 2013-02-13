@@ -4,7 +4,7 @@
       "unknown"
    ],
    "dynamic_config" : 1,
-   "generated_by" : "Module::Build version 0.3901, CPAN::Meta::Converter version 2.120630",
+   "generated_by" : "Module::Build version 0.4003, CPAN::Meta::Converter version 2.120921",
    "license" : [
       "perl_5"
    ],
@@ -40,21 +40,22 @@
       "runtime" : {
          "requires" : {
             "PDL" : "v2.4.10",
-            "perl" : "v5.8.0"
+            "perl" : "v5.8.0",
+            "threads::shared" : "1.21"
          }
       }
    },
    "provides" : {
       "PDL::Parallel::threads" : {
          "file" : "lib/PDL/Parallel/threads.pm",
-         "version" : "0.03"
+         "version" : "0.03_01"
       },
       "PDL::Parallel::threads::SIMD" : {
          "file" : "lib/PDL/Parallel/threads/SIMD.pm",
          "version" : "0.02"
       }
    },
-   "release_status" : "stable",
+   "release_status" : "testing",
    "resources" : {
       "bugtracker" : {
          "web" : "http://github.com/run4flat/PDL-Parallel-threads/issues"
@@ -66,5 +67,5 @@
          "url" : "http://github.com/run4flat/PDL-Parallel-threads"
       }
    },
-   "version" : "0.03"
+   "version" : "0.03_01"
 }
